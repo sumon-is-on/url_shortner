@@ -67,55 +67,69 @@
 
 ## Installation Process
 
-*Clone the Git Repository*
+## Clone the Git Repository
 
-
+```
 git@github.com:sumon-is-on/url_shortner.git
+```
 
+## Change Directory To Project Root*
 
-*Change Directory To Project Root*
-
-
+```
 cd url_shortner
+```
 
+## Run Composer Install or Update*
 
-*Run Composer Install or Update*
-
-
+```php
 composer install
+```
 
+## If version conflict with php or other dependencies*
 
-*If version conflict with php or other dependencies*
-
-
+```php
 composer install --ignore-platform-reqs
+```
 
+## Generate Environment File and Generate App Key*
 
-*Generate Environment File and Generate App Key*
-
-
+```
 cp .env.example .env && php artisan key:generate
+```
 
+## Add the Database Credentials In the .env file*
 
-*Add the Database Credentials In the .env file*
-
-
+```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=url_shortner
-DB_USERNAME=if0_35596855_url_shortner
-DB_PASSWORD=v4euG9VwVlweQP
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user_name
+DB_PASSWORD=your_database_password
+```
 
+## Run Migration and Seed For Base User
 
-*Run the Project In local host with apache*
+```
+php artisan migrate:fresh --seed
+```
 
+## Run the Project In local host with apache*
 
+```
 localhost/url_shortner/public
+```
 
 
+## Run the Project In local host with artisan serve*
 
-*Run the Project In local host with artisan serve*
-
-
+```
 php artisan serve
+```
+
+## Base User Credentials
+
+```
+email: sumon@gmail.com
+password: 09876543
+```
