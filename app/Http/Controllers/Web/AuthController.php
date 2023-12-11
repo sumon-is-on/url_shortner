@@ -18,16 +18,11 @@ class AuthController extends Controller
 
 
     public function loginPost(Request $request){
-        // dd($request->all());
-        $validation = Validator::make($request->all(),[
+        $request->validate([
             'email'=>'required',
             'password'=>'required'
-        ]);
 
-        if ($validation->fails()) {
-            Toastr::error('Validatio fails');
-            return redirect()->back();
-        }
+        ]);
         $credentials=$request->only('email','password');
         if(Auth::attempt($credentials)){
             Toastr::success('Logged In Successfully');
@@ -60,7 +55,8 @@ class AuthController extends Controller
             'name'=>'required',
             'email'=>'required|unique:users,email',
             'phone'=>'required|unique:users,phone',
-            'password'=>'required'
+            'image' => 'mimes:png,jpg',
+            'password'=>'required|min:8'
         ]);
         if ($validation->fails()) {
             return redirect()->back();

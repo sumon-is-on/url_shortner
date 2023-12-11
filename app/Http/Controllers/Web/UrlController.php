@@ -11,18 +11,26 @@ use Illuminate\Support\Facades\Validator;
 
 class UrlController extends Controller
 {
-    public function create(){
+    public function create()
+    {
         return view('web');
     }
+    public function pathParamter($pathParamter)
+    {
+        $url = Url::where('short_url', $pathParamter)->firstOrFail();
+        if ($url) {
+            $url->update([
+                'click_count' => $url->click_count + 1,
+            ]);
+            return redirect()->to($url->original_url);
+        }
+    }
 
-    public function store(Request $request){
-        $validation = Validator::make($request->all(),[
+    public function store(Request $request)
+    {
+        $request->validate([
             'url'       =>  'required|url'
         ]);
-        if($validation->fails()){
-            Toastr::error('Validation error');
-            return redirect()->back();
-        }
 
         $url = $request->input('url');
         $shortUrl = generateShortUrl();
@@ -35,14 +43,5 @@ class UrlController extends Controller
         Toastr::success('Short url Has been generated Successfully');
         return redirect()->route('user.profile');
 
-    }
-    public function pathParamter($pathParamter){
-        $url = Url::where('short_url', $pathParamter)->firstOrFail();
-        if ($url) {
-            $url->update([
-                'click_count' => $url->click_count + 1,
-            ]);
-            return redirect()->to($url->original_url);
-        }
     }
 }
