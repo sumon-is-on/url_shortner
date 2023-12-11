@@ -1,30 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
+use App\Models\Url;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Url;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UrlController extends Controller
 {
-
-    public function index(){
-        //
+    public function create(){
+        return view('web');
     }
 
     public function store(Request $request){
-
         $validation = Validator::make($request->all(),[
             'url'       =>  'required|url'
         ]);
         if($validation->fails()){
-            return response()->json([
-                'message'   =>  'Validation error',
-                'errors'    =>  $validation->errors()
-            ],422);
+            return redirect()->back();
         }
 
         $url = $request->input('url');
@@ -36,20 +31,7 @@ class UrlController extends Controller
             'user_id'       => Auth::user()->id,
         ]);
 
-        return $this->ResponseWithSuccess($url, 'Your url is set to short');
-    }
+        return redirect()->back();
 
-
-    public function show(string $id){
-        //
-    }
-
-
-    public function update(Request $request, string $id){
-        //
-    }
-
-    public function destroy(string $id){
-        //
     }
 }
