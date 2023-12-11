@@ -20,16 +20,28 @@
                             @csrf
                             <div class="form-group">
                                 <input type="text" name="name" class="form-control rounded-left" placeholder="Yourname" required>
+                                <p class="text-danger">@error('name')
+                                    {{ $message }}
+                                    @enderror</p>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="email" class="form-control rounded-left" placeholder="Email" required>
+                                <p class="text-danger">@error('email')
+                                    {{ $message }}
+                                    @enderror</p>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="phone" class="form-control rounded-left" placeholder="Contact Number" required>
+                                <p class="text-danger">@error('phone')
+                                    {{ $message }}
+                                    @enderror</p>
                             </div>
                             <div class="form-group">
                                 <label for="image" class="block mb-2  font-medium text-gray-900 dark:text-white">Image</label>
                                 <input type="file" name="image" id="image" aria-describedby="image-explanation">
+                                <p class="text-danger">@error('image')
+                                    {{ $message }}
+                                    @enderror</p>
                             </div>
                             <div class="form-group">
                                 <label for="countries" class="block mb-2 font-medium text-gray-900 dark:text-white">Registration AS:</label>
@@ -39,9 +51,15 @@
                                    name="role_id" value="{{ $role->id }}">{{ $role->name }}</option>
                                   @endforeach
                               </select>
+                              <p class="text-danger">@error('role_id')
+                                {{ $message }}
+                                @enderror</p>
                            </div>
                             <div class="form-group d-flex">
                                 <input type="password" name="password" class="form-control rounded-left" placeholder="Password" required>
+                                <p class="text-danger">@error('password')
+                                    {{ $message }}
+                                    @enderror</p>
                             </div>
                             <div class="form-group">
                                 <div class="row">

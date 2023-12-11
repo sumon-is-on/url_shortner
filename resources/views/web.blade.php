@@ -20,6 +20,9 @@
                             @csrf
                             <div class="form-group">
                                 <input type="text" name="url" class="form-control rounded-left" placeholder="Url" required>
+                                <p class="text-danger">@error('url')
+                                    {{ $message }}
+                                    @enderror</p>
                             </div>
                             <div class="form-group">
                                 <div class="row">

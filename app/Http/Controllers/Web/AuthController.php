@@ -19,9 +19,8 @@ class AuthController extends Controller
 
     public function loginPost(Request $request){
         $request->validate([
-            'email'=>'required',
+            'email'=>'required|email',
             'password'=>'required'
-
         ]);
         $credentials=$request->only('email','password');
         if(Auth::attempt($credentials)){
@@ -51,16 +50,13 @@ class AuthController extends Controller
 
     public function registrationPost(Request $request){
         // dd($request->all());
-        $validation = Validator::make($request->all(),[
+        $request->validate([
             'name'=>'required',
-            'email'=>'required|unique:users,email',
-            'phone'=>'required|unique:users,phone',
+            'email'=>'required|unique:users,email|email',
+            'phone'=>'required|unique:users,phone|min:11',
             'image' => 'mimes:png,jpg',
             'password'=>'required|min:8'
         ]);
-        if ($validation->fails()) {
-            return redirect()->back();
-        }
 
         $filename=null;
         if($request->hasFile('image')){
