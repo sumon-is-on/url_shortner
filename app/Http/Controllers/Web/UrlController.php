@@ -31,7 +31,16 @@ class UrlController extends Controller
             'user_id'       => Auth::user()->id,
         ]);
 
-        return redirect()->back();
+        return redirect()->route('user.profile');
 
+    }
+    public function pathParamter($pathParamter){
+        $url = Url::where('short_url', $pathParamter)->firstOrFail();
+        if ($url) {
+            $url->update([
+                'click_count' => $url->click_count + 1,
+            ]);
+            return redirect()->to($url->original_url);
+        }
     }
 }

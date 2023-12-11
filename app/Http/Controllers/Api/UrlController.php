@@ -39,7 +39,16 @@ class UrlController extends Controller
         return $this->ResponseWithSuccess($url, 'Your url is set to short');
     }
 
-
+    public function pathParamter($pathParamter){
+        $url = Url::where('short_url', $pathParamter)->firstOrFail();
+        if ($url) {
+            $url->update([
+                'click_count' => $url->click_count + 1,
+            ]);
+            return redirect()->to($url->original_url);
+        }
+    }
+    
     public function show(string $id){
         //
     }

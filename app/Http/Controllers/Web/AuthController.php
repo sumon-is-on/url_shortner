@@ -36,7 +36,7 @@ class AuthController extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect()->route('web.home');
+        return redirect()->route('url.create');
     }
 
 
@@ -59,7 +59,7 @@ class AuthController extends Controller
         if ($validation->fails()) {
             return redirect()->back();
         }
-        
+
         $filename=null;
         if($request->hasFile('image')){
             $image=$request->file('image');

@@ -13,4 +13,6 @@ Route::middleware('auth:sanctum')->group(function(){
 
     # Url
     Route::resource('url', UrlController::class);
+    Route::get('/{pathParamter}',[UrlController::class, 'pathParamter'])->name('url.pathParamter');
+
 });
