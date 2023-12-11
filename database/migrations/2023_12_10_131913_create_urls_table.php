@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void{
         Schema::create('urls', function (Blueprint $table) {
             $table->id();
-            $table->string('original_url',500);
+            $table->longText('original_url');
             $table->string('short_url')->unique();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('click_count')->default(0);

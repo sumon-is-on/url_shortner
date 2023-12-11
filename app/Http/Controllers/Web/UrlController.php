@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Models\Url;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,6 +20,7 @@ class UrlController extends Controller
             'url'       =>  'required|url'
         ]);
         if($validation->fails()){
+            Toastr::error('Validation error');
             return redirect()->back();
         }
 
@@ -30,7 +32,7 @@ class UrlController extends Controller
             'short_url'     => $shortUrl,
             'user_id'       => Auth::user()->id,
         ]);
-
+        Toastr::success('Short url Has been generated Successfully');
         return redirect()->route('user.profile');
 
     }

@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,21 +23,26 @@ class AuthController extends Controller
             'email'=>'required',
             'password'=>'required'
         ]);
+
         if ($validation->fails()) {
+            Toastr::error('Validatio fails');
             return redirect()->back();
         }
         $credentials=$request->only('email','password');
         if(Auth::attempt($credentials)){
+            Toastr::success('Logged In Successfully');
             return redirect()->route('url.create');
         }
         else{
+            Toastr::warning('Invallid credentials');
             return redirect()->back();
         }
     }
 
     public function logout(){
         Auth::logout();
-        return redirect()->route('url.create');
+        Toastr::warning('Logged Out Successfully');
+        return redirect()->route('user.login');
     }
 
 
@@ -74,6 +80,7 @@ class AuthController extends Controller
             'password'=>bcrypt($request->password),
             'phone'=>$request->phone,
         ]);
+        Toastr::success('Registration Successfully. Please Log in ');
         return to_route('user.login');
     }
 }
